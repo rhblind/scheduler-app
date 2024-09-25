@@ -1,7 +1,8 @@
 defmodule SchedulerApp.Domain.Oban.Jobs do
   use Ash.Resource,
     domain: SchedulerApp.Domain.Oban,
-    data_layer: AshPostgres.DataLayer
+    data_layer: AshPostgres.DataLayer,
+    extensions: [AshJsonApi.Resource]
 
   attributes do
     integer_primary_key :id
@@ -33,5 +34,24 @@ defmodule SchedulerApp.Domain.Oban.Jobs do
   postgres do
     repo SchedulerApp.Repo
     table "oban_jobs"
+  end
+
+  json_api do
+    type "jobs"
+
+    routes do
+      base "/oban/jobs"
+
+      get :read
+      index :read
+      post :create
+      patch :update
+      delete :destroy
+    end
+  end
+
+  actions do
+    defaults [:read, :destroy, create: :*, update: :*]
+    default_accept [:state, :queue, :worker, :args]
   end
 end
