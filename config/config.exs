@@ -28,6 +28,7 @@ config :scheduler_app,
 config :scheduler_app, Oban,
   engine: Oban.Engines.Basic,
   queues: [default: 10],
+  plugins: [{Oban.Plugins.Cron, []}],
   repo: SchedulerApp.Repo
 
 # Configures the endpoint

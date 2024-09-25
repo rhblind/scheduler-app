@@ -34,7 +34,19 @@ defmodule SchedulerApp.Domain.Oban.Jobs do
   postgres do
     repo SchedulerApp.Repo
     table "oban_jobs"
+    migrate? false
   end
+
+  # oban do
+  #   triggers do
+  #     trigger :check_for_jobs do
+  #       action :send_api_request
+  #       queue :default
+  #       scheduler_cron "* * * * *"
+  #       on_error :errored
+  #     end
+  #   end
+  # end
 
   json_api do
     type "jobs"
@@ -53,5 +65,11 @@ defmodule SchedulerApp.Domain.Oban.Jobs do
   actions do
     defaults [:read, :destroy, create: :*, update: :*]
     default_accept [:state, :queue, :worker, :args]
+
+    action :send_api_request do
+      run fn _, _context ->
+        IO.inspect("Sending API request!")
+      end
+    end
   end
 end

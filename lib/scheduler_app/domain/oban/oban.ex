@@ -3,5 +3,6 @@ defmodule SchedulerApp.Domain.Oban do
 
   resources do
     resource SchedulerApp.Domain.Oban.Jobs
+    resource SchedulerApp.Domain.Oban.Event
   end
 end

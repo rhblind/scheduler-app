@@ -41,6 +41,8 @@ defmodule SchedulerApp.MixProject do
       {:ash_postgres, "~> 2.4"},
       {:ash_phoenix, "~> 2.1"},
 
+      {:recurring_events, "~> 0.4.0"},
+
       # Phoenix default stuff
       {:phoenix, "~> 1.7.14"},
       {:phoenix_ecto, "~> 4.5"},
